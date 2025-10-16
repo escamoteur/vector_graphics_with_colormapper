@@ -106,6 +106,7 @@ class AssetBytesLoader extends BytesLoader {
       assetName,
       packageName,
       _resolveBundle(context),
+      colorMapper,
     );
   }
 
@@ -120,22 +121,23 @@ class AssetBytesLoader extends BytesLoader {
 @immutable
 class _AssetByteLoaderCacheKey {
   const _AssetByteLoaderCacheKey(
-      this.assetName, this.packageName, this.assetBundle);
+      this.assetName, this.packageName, this.assetBundle, this.colorMapper);
 
   final String assetName;
   final String? packageName;
-
   final AssetBundle assetBundle;
+  final ColorMapper? colorMapper;
 
   @override
-  int get hashCode => Object.hash(assetName, packageName, assetBundle);
+  int get hashCode => Object.hash(assetName, packageName, assetBundle, colorMapper);
 
   @override
   bool operator ==(Object other) {
     return other is _AssetByteLoaderCacheKey &&
         other.assetName == assetName &&
         other.assetBundle == assetBundle &&
-        other.packageName == packageName;
+        other.packageName == packageName &&
+        other.colorMapper == colorMapper;
   }
 
   @override
